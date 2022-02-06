@@ -91,17 +91,19 @@ def patchuser():
 @app.route("/data/<int:id>",methods = ["PATCH"])
 def patchdata(id):
     #global FAKE_DATABASE2
-    for tank_id in FAKE_DATABASE2: 
-            if tank_id["id"] == id:
-                if "location" in request.json:
-                    FAKE_DATABASE2[id-1]["location"] = request.json["location"]# array starts at 0 so if the id's in the data base math what we are looking for -1 to access the first one and change the location
-                if "lat" in request.json:
-                    FAKE_DATABASE2[id-1]["lat"] = request.json["lat"]   
-                if "long" in request.json:              
-                    FAKE_DATABASE2[id-1]["long"] = request.json["long"] 
-                if "percentage_full" in request.json:
-                    FAKE_DATABASE2[id-1]["percentage_full"] = request.json["percentage_full"]
-    return jsonify(FAKE_DATABASE2)
+    for t in FAKE_DATABASE2: 
+        if t ["id"] == id:
+            if "location" in request.json:
+                t["location"] = request.json["location"]# array starts at 0 so if the id's in the data base math what we are looking for -1 to access the first one and change the location
+            if "lat" in request.json:
+                t["lat"] = request.json["lat"]   
+            if "long" in request.json:              
+                t["long"] = request.json["long"] 
+            if "percentage_full" in request.json:
+                t["percentage_full"] = request.json["percentage_full"]
+    for t in FAKE_DATABASE2: 
+        if t ["id"] == id:
+            return jsonify(t)
 
 #DELETE TANK 
 @app.route("/data/<int:id>",methods = ["DELETE"])
