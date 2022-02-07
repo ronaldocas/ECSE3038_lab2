@@ -72,13 +72,15 @@ def patchuser():
     new_datetime_string = new_date_time.strftime("%d/%m/%Y, %H:%M:%S")#formats day and time
     if "username" in  request.json: # if the json request from the client which in this case is our postman web app is a username 
         FAKE_DATABASE["data"]["username"] = request.json["username"] # store the json request from the client into the location in our dictionary that correspends to where usernames are stored 
+        FAKE_DATABASE["data"]["last_updated"] = new_datetime_string 
     if "color" in request.json: # if the json request from the client which in this case is our postman web app is a color
         FAKE_DATABASE["data"]["color"] = request.json["color"]# store the json request from the client into the location in our dictionary that correspends to where colors are stored 
+        FAKE_DATABASE["data"]["last_updated"] = new_datetime_string 
     if  "role" in request.json: # if the json request from the client which in this case is our postman web app is a role 
         FAKE_DATABASE["data"]["role"] = request.json["role"] # store the json request from the client into the location in our dictionary that correspends to where roles are stored 
-       
-    if "last_updated" in (FAKE_DATABASE["data"]) != datetime_string:  # IF THE TIME STORED IN LAST UPDATED TIME IS NOT EQUAL TO THE CURRENT TIME WHEN WE PATCH THEN UPDATE THE TIME 
         FAKE_DATABASE["data"]["last_updated"] = new_datetime_string 
+   # if "last_updated" in (FAKE_DATABASE["data"]) != datetime_string:  # IF THE TIME STORED IN LAST UPDATED TIME IS NOT EQUAL TO THE CURRENT TIME WHEN WE PATCH THEN UPDATE THE TIME 
+        #FAKE_DATABASE["data"]["last_updated"] = new_datetime_string #ggggg
     return jsonify(FAKE_DATABASE)
 
 #UPDATE TANK 
@@ -96,7 +98,7 @@ def patchdata(id):
             if "percentage_full" in request.json:
                 t["percentage_full"] = request.json["percentage_full"] #LINE 92-97 CORRESPOND WITH THE COMMENT FOR LINE 90
     for t in FAKE_DATABASE2: #SCROLL THROUGH THE UPDATE INFO IN OUR FAKE DATABASE
-        if t ["id"] == id: # IF THE ID INPUTED FROM THE CLIENT IS EQUAL TO THE ID IN OUR FAKE DARABE 
+        if t ["id"] == id: # IF THE ID INPUTED FROM THE CLIENT IS EQUAL TO THE ID IN OUR FAKE DAtabase
             return jsonify(t) # RETURN UPDATED INFO FROM FAKE DATABSE 
 
 #DELETE TANK 
